@@ -31,8 +31,19 @@ crt0 -> start -> main
 // 这确保Rust编译器输出一个名为_start的函数
 // 将函数标记为extern "C"，告诉编译器这个函数应当使用C语言的调用约定，而不是Rust语言的调用约定。
 // 函数名为_start，是因为大多数系统默认使用这个名字作为入口点名称。
+static HELLO: &[u8] = b"Hello World!";
+
 #[no_mangle]
 pub extern "C" fn _start() -> !{
+    let vga_buffer = 0xb8000 as *mut u8;
+    
+    for(i, &byte) in HELLO.iter().enumerate() {
+        unsafe {
+            *vga_buffer.offset(i as isize * 2) = byte;
+            // 0xb 表示淡青色
+            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
+        }
+    }
     loop {}
 }
 
