@@ -1,4 +1,0 @@
-cargo:rerun-if-changed=build.rs
-cargo:compiler-rt=/home/ubuntu/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/compiler_builtins-0.1.82/compiler-rt
-cargo:rustc-cfg=feature="unstable"
-cargo:rustc-cfg=feature="mem-unaligned"
